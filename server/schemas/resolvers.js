@@ -4,8 +4,16 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    me: async () => {
+    users: async () => {
       return User.find();
+    },
+
+    // By adding context to our query, we can retrieve the logged in user without specifically searching for them
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id });
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
 
@@ -27,38 +35,39 @@ const resolvers = {
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
 
-      // if (!user) {
-      //   return res.status(400).json({ message: 'Something is wrong!' });
-      // }
+      if (!user) {
+        throw new AuthenticationError('Something is wrong!');
+      }
 
       const token = signToken(user);
       return { token, user };
     },
-    saveBook: async (parent, { input }) => {
-      try {
-        const updatedUser = await User.findOneAndUpdate(
-          { _id: user._id },
+    saveBook: async (parent, { input }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
           { $addToSet: { savedBooks: input } },
           { new: true, runValidators: true }
         );
-        return res.json(updatedUser);
-      } catch (err) {
-        console.log(err);
-        return res.status(400).json(err);
       }
+      throw new AuthenticationError('You need to be logged in!');
     },
-    removeBook: async (parent, { bookId }) => {
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: user._id },
-        { $pull: { savedBooks: bookId } },
-        { new: true }
-      );
-      if (!updatedUser) {
-        return res
-          .status(404)
-          .json({ message: "Couldn't find user with this id!" });
+    removeBook: async (parent, { bookId }, context) => {
+      if (context.user) {
+        const updatedUser = User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedBooks: bookId } },
+          { new: true }
+        );
+
+        if (!updatedUser) {
+          throw new AuthenticationError("Couldn't find user with this id!");
+        }
+
+        return updatedUser;
       }
-      return res.json(updatedUser);
+
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
 };
