@@ -28,10 +28,12 @@ export const SAVE_BOOK = gql`
 
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
-    addSkill(username: $username, email: $email, password: $password) {
-      _id
-      username
-      email
+    addUser(username: $username, email: $email, password: $password) {
+      token
+      user {
+        _id
+        username
+      }
     }
   }
 `;
