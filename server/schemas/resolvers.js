@@ -18,7 +18,7 @@ const resolvers = {
   },
 
   Mutation: {
-    login: async (parent, { email, password }) => {
+    loginUser: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
         throw new AuthenticationError("Can't find this user");
