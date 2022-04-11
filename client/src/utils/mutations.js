@@ -1,26 +1,19 @@
 import { gql } from '@apollo/client';
 
 export const SAVE_BOOK = gql`
-  mutation saveBook(
-    $bookID: ID!
-    $authors: [String]
-    $description: String!
-    $title: String!
-    $image: String!
-    $link: String!
-  ) {
-    addProfile(
-      bookID: $bookID
-      authors: $authors
-      description: $description
-      title: $title
-      image: $image
-      link: $link
-    ) {
-      token
-      user {
-        _id
-        name
+  mutation saveBook($input: BookInput!) {
+    saveBook(input: $input) {
+      _id
+      username
+      email
+      bookCount
+      savedBooks {
+        bookId
+        authors
+        description
+        title
+        image
+        link
       }
     }
   }
