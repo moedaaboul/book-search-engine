@@ -16,19 +16,22 @@ import { removeBookId } from '../utils/localStorage';
 const SavedBooks = () => {
   // const [userData, setUserData] = useState({});
   const { loading, error, data } = useQuery(GET_ME);
-  const [removeBook] = useMutation(REMOVE_BOOK, {
-    update(cache, { data: { removeBook } }) {
-      // update me object's cache
-      const { me } = cache.readQuery({ query: GET_ME });
-      const newSavedBooks = me.savedBooks.filter(
-        (e) => removeBook.bookId !== e.bookId
-      );
-      cache.writeQuery({
-        query: GET_ME,
-        data: { me: { ...me, savedBooks: newSavedBooks } },
-      });
-    },
-  });
+  const [removeBook] = useMutation(
+    REMOVE_BOOK
+    //   , {
+    //   update(cache, { data: { removeBook } }) {
+    //     // update me object's cache
+    //     const { me } = cache.readQuery({ query: GET_ME });
+    //     const newSavedBooks = me.savedBooks.filter(
+    //       (e) => removeBook.bookId !== e.bookId
+    //     );
+    //     cache.writeQuery({
+    //       query: GET_ME,
+    //       data: { me: { ...me, savedBooks: newSavedBooks } },
+    //     });
+    //   },
+    // }
+  );
 
   // use this to determine if `useEffect()` hook needs to run again
   // const userDataLength = Object.keys(userData).length;
@@ -62,20 +65,20 @@ const SavedBooks = () => {
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
+    console.log(token);
     if (!token) {
       return false;
     }
-
+    // console.log(removeBook);
+    console.log(bookId);
     try {
       const { data } = await removeBook({
-        variables: { bookId },
+        variables: { bookId: bookId },
       });
-
+      console.log(data);
       // if (!response.ok) {
       //   throw new Error('something went wrong!');
       // }
-
       // const updatedUser = await response.json();
       // setUserData(updatedUser);
       // upon success, remove book's id from localStorage
