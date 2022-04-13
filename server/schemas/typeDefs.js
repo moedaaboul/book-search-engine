@@ -14,7 +14,7 @@ const typeDefs = gql`
     _id: ID!
     username: String
     email: String
-    bookCount: String
+    bookCount: Float
     savedBooks: [Book]
   }
 
@@ -25,7 +25,6 @@ const typeDefs = gql`
 
   type Query {
     users: [User]
-    user(userId: ID!): User
     # context functionality in place to check a JWT and decode its data, so we can use a query that will always find and return the logged in user's data
     me: User
   }
