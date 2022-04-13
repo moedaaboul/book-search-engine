@@ -15,7 +15,7 @@ import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
   // const [userData, setUserData] = useState({});
-  const { loading, error, data: userData } = useQuery(GET_ME);
+  const { loading, data: userData } = useQuery(GET_ME);
   // cache is updated by Apollo Client in this case, as useQuery(GET_ME) is declared as part of this Component
   const [removeBook] = useMutation(REMOVE_BOOK);
 
