@@ -151,6 +151,13 @@ const SearchBooks = () => {
                         : 'Save this Book!'}
                     </Button>
                   )}
+                  <Button
+                    variant="primary"
+                    className="mt-2 btn-block"
+                    href={book.link}
+                  >
+                    Link to Google Books
+                  </Button>
                 </Card.Body>
               </Card>
             );
