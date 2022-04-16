@@ -24,8 +24,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    users: [User]
-    # context functionality in place to check a JWT and decode its data, so we can use a query that will always find and return the logged in user's data
     me: User
   }
 
