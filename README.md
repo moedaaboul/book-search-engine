@@ -6,6 +6,8 @@ Live demo [_here_](https://google-books-search-save-app.herokuapp.com/).
 ## Table of Contents
 
 - [General Info](#general-information)
+- [Installation](#installation)
+- [Usage](#usage)
 - [Appearance](#appearance)
 - [Technologies Used](#technologies-used)
 - [Setup](#setup)
@@ -21,9 +23,23 @@ The purpose of this task was to take a fully functioning Google Books API search
 - Modifying RESTful API authentication middleware so that it works in the context of a GraphQL API.
 - Created an Apollo Provider so that requests can communicate with an Apollo Server.
 
+## Installation
+
+​Install dependencies using:
+
+    npm install
+
+## Usage
+
+Need to have MongoDB and MongoDB Compass installed locally to run the app. Alternatively, you can also refer to the live app.
+
+The application will then be invoked by using the following command:
+
+    npm run develop
+
 ## Appearance
 
-Below depicts full home page view of my portfolio app:
+Below depicts functionality of the main app features:
 
 ![Full page view of portfolio](./assets/readme.gif)
 
@@ -37,8 +53,11 @@ Below depicts full home page view of my portfolio app:
 
 ## Setup
 
--Text editor (VS Code recommended)
--An Internet browser (Google Chrome recommended)
+- Text editor (VS Code recommended)
+- An Internet browser (Google Chrome recommended)
+- MongoDB and MongoDB to be locally installed
+- MongoDB Atlas for live deployment
+- Heroku
 
 ## Project Status
 
